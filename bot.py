@@ -58,7 +58,10 @@ def start(message):
 
 @bot.message_handler(
     func=lambda message: message.text
-    and any(word in message.text for word in ["Булінг", "булінг"])
+    and any(
+        word in message.text
+        for word in ["Булінг", "Допомога", "Проблеми в сім'ї", "Інше"]
+    )
 )
 def start_report(message):
   category = message.text
