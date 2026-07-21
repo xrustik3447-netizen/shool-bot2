@@ -1,3 +1,29 @@
+from flask import Flask
+import threading
+
+app = Flask(__name__)
+
+
+@app.route("/")
+def home():
+  I = "Bot is active!"
+  return I
+
+
+def run_flask():
+  # Render виділяє порт через змінну середовища PORT
+  import os
+
+  port = int(os.environ.get("PORT", 10000))
+  app.run(host="0.0.0.0", port=port)
+
+
+# Запускаємо вебсервер у фоновому потоці, щоб він відкривав порт для Render
+flask_thread = threading.Thread(target=run_flask)
+flask_thread.start()
+
+# Далі йде звичний запуск вашого бота
+# bot.infinity_polling(...)
 import telebot
 from telebot import types
 
