@@ -1,8 +1,3 @@
-
-логотип Pella
-пелла
-Присоединяйтесь к нашему Discord-серверу
-
 rustik3447
 бот.пи
 import telebot
