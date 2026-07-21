@@ -183,7 +183,18 @@ def user_reply(message):
     bot.forward_message(ADMIN_ID, message.chat.id, message.message_id)
     bot.send_message(message.chat.id, "Ваше повідомлення передано інспектору.", reply_markup=get_finish_keyboard())
 
-if __name__ == '__main__':
-    bot.infinity_polling()
-Настройки
-Выйти
+
+if __name__ == "__main__":
+  # 1. Запускаємо Flask у фоновому потоці
+  flask_thread = threading.Thread(target=run_flask)
+  flask_thread.daemon = True
+  flask_thread.start()
+
+  # 2. Запуск бота з автовідновленням при обривах мережі
+  while True:
+    try:
+      print("Бот запущено...")
+      bot.infinity_polling(timeout=60, long_polling_timeout=60)
+    except Exception as e:
+      print(f"Сталася помилка з'єднання: {e}")
+      time.sleep(5)   # Пауза перед повторною спробою
