@@ -48,7 +48,7 @@ def get_finish_keyboard():
 def start(message):
     bot.send_message(message.chat.id, "Вітаю! Оберіть категорію звернення:", reply_markup=get_main_menu())
 
-@bot.message_handler(func=lambda message: message.text in ["🤬 Булінг", "🆘 Допомога", "👨‍👩‍👧 Проблеми в сім’ї", "💡 Інше"])
+@bot.message_handler(func=lambda message: message.text in ["Булінг", "🆘 Допомога", "👨‍👩‍👧 Проблеми в сім’ї", "💡 Інше"])
 def start_report(message):
     category = message.text
     msg = bot.send_message(message.chat.id, 
