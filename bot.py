@@ -56,17 +56,21 @@ def get_finish_keyboard():
 def start(message):
     bot.send_message(message.chat.id, "Вітаю! Оберіть категорію звернення:", reply_markup=get_main_menu())
 
-@bot.message_handler(func=lambda message: message.text in ["Булінг", "🆘 Допомога", "👨‍👩‍👧 Проблеми в сім’ї", "💡 Інше"])
+@bot.message_handler(
+    func=lambda message: message.text
+    and any(word in message.text for word in ["Булінг", "булінг"])
+)
 def start_report(message):
-    category = message.text
-    msg = bot.send_message(message.chat.id, 
-                           "1) Вкажіть вашу школу та клас.\n"
-                           "2) Опишіть ситуацію одним повідомленням\n\n"
-                           "❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️❗️\n"
-                           "ПРИКЛАД: ЗЗСО №153, 9-А клас, (детальний опис ситуації...)", 
-                           reply_markup=types.ReplyKeyboardRemove())
-    bot.register_next_step_handler(msg, send_to_admin, category)
-
+  category = message.text
+  msg = bot.send_message(
+      message.chat.id,
+      "1) Вкажіть вашу школу та клас.\n"
+      "2) Опишіть ситуацію одним повідомленням\n\n"
+      "⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️\n\n"
+      "ПРИКЛАД: ЗЗСО №153, 9-А клас, (детальний опис ситуації...)",
+      reply_markup=types.ReplyKeyboardRemove(),
+  )
+  bot.register_next_step_handler(msg, send_to_admin, category)
 def send_to_admin(message, category):
     admin_text = (f"📩 **Нове звернення** | ID: {message.chat.id}\n"
                   f"👤 Від: {message.from_user.first_name}\n"
