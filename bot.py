@@ -34,14 +34,22 @@ bot = telebot.TeleBot(TOKEN)
 
 # --- Клавіатури ---
 def get_main_menu():
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-    markup.add("🛡 Булінг", "🆘 Допомога", "👨‍👩‍👧 Проблеми в сім’ї", "💡 Інше")
-    return markup
+  markup = types.ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
+  btn1 = types.KeyboardButton("🚨 Булінг")
+  btn2 = types.KeyboardButton("🆘 Допомога")
+  btn3 = types.KeyboardButton("👨‍👩‍👧‍👦 Проблеми в сім'ї")
+  btn4 = types.KeyboardButton("💡 Інше")
+  markup.add(btn1, btn2, btn3, btn4)
+  return markup
+
 
 def get_finish_keyboard():
-    markup = types.InlineKeyboardMarkup()
-    markup.add(types.InlineKeyboardButton("✅ Завершити діалог", callback_data="finish_chat"))
-    return markup
+  markup = types.InlineKeyboardMarkup()
+  finish_btn = types.InlineKeyboardButton(
+      "✅ Завершити діалог", callback_data="finish_chat"
+  )
+  markup.add(finish_btn)
+  return markup
 
 # --- Команди ---
 @bot.message_handler(commands=['start'])
