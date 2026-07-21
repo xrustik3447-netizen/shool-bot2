@@ -1,5 +1,3 @@
-rustik3447
-бот.пи
 import telebot
 from telebot import types
 
